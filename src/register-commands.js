@@ -37,6 +37,28 @@ const commands = [
                 description: 'Book of the bible',
                 type: ApplicationCommandOptionType.String,
                 required: true,
+                choices: [
+                    {
+                        name: 'Genesis',
+                        value: 'genesis',
+                    },
+                    {
+                        name: 'Exodus',
+                        value: 'exodus',
+                    },
+                    {
+                        name: 'Leviticus',
+                        value: 'leviticus',
+                    },
+                    {
+                        name: 'Numbers',
+                        value: 'numbers',
+                    },
+                    {
+                        name: 'Deuteronomy',
+                        value: 'Deuteronomy',
+                    },
+                ],
             },
             {
                 name: 'chapter',

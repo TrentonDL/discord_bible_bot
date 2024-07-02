@@ -41,6 +41,39 @@ client.on('interactionCreate', (interaction) => {
 
         interaction.reply(`The sum of ${num1} + ${num2} = ${num1+num2}!`);
     }
+
+    if(interaction.commandName === 'bible'){
+        const book = interaction.options.get('book').value;
+        const chapter = interaction.options.get('chapter').value;
+        
+        var verse = '0';
+        if( interaction.options.get('verses') !== null ){
+            verse = interaction.options.get('verses').value;
+        }
+
+        var version = '';
+        if( interaction.options.get('version') !== null ){
+            version = interaction.options.get('version').value;
+        }
+
+        if ( version === '' ) version = 'esv';
+
+        if (verse !== '0' ) {
+            fetch(
+                `https://github.com/gh/wldeh/bible-api/bibles/en-${version}/books/${book}/chapters/${chapter}/verses/${verse}.json`
+            )
+            .then((response) => response.json())
+            .then((data) => console.log(data.text));
+        }
+        
+        if (verse === '0') {
+            fetch(
+                `https://github.com/gh/wldeh/bible-api/bibles/en-${version}/books/${book}/chapters/${chapter}.json`
+            )
+            .then((response) => response.json())
+            .then((data) => interaction.reply(`${data.text}`));
+        }
+    }
 });
 
 client.login(process.env.TOKEN);
