@@ -60,7 +60,7 @@ client.on('interactionCreate', (interaction) => {
 
         if (verse !== '0' ) {
             fetch(
-                `https://github.com/gh/wldeh/bible-api/bibles/en-${version}/books/${book}/chapters/${chapter}/verses/${verse}.json`
+                `https://cdn.jsdelivr.net/gh/wldeh/bible-api/bibles/en-${version}/books/${book}/chapters/${chapter}/verses/${verse}.json`
             )
             .then((response) => response.json())
             .then((data) => console.log(data.text));
@@ -68,7 +68,7 @@ client.on('interactionCreate', (interaction) => {
         
         if (verse === '0') {
             fetch(
-                `https://github.com/gh/wldeh/bible-api/bibles/en-${version}/books/${book}/chapters/${chapter}.json`
+                `https://cdn.jsdelivr.net/gh/wldeh/bible-api/bibles/en-${version}/books/${book}/chapters/${chapter}.json`
             )
             .then((response) => response.json())
             .then((data) => interaction.reply(`${data.text}`));
