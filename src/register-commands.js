@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { REST, Routes, ApplicationCommandOptionType, Options } = require('discord.js');
+const { REST, Routes, ApplicationCommandOptionType} = require('discord.js');
 
 const commands = [
     {
@@ -72,27 +72,27 @@ const commands = [
                     },
                     {
                         name: '1 Samuel',
-                        value: '1 samuel',
+                        value: '1samuel',
                     },
                     {
                         name: '2 Samuel',
-                        value: '2 samuel',
+                        value: '2samuel',
                     },
                     {
                         name: '1 Kings',
-                        value: '1 kings',
+                        value: '1kings',
                     },
                     {
                         name: '2 Kings',
-                        value: '2 kings',
+                        value: '2kings',
                     },
                     {
                         name: '1 Chronicles',
-                        value: '1 chronicles',
+                        value: '1chronicles',
                     },
                     {
                         name: '2 Chronicles',
-                        value: '2 chronicles',
+                        value: '2chronicles',
                     },
                     {
                         name: 'Ezra',
@@ -124,7 +124,7 @@ const commands = [
                     },
                     {
                         name: 'Song of Solomon',
-                        value: 'song of solomon',
+                        value: 'songofsolomon',
                     },
                     {
                         name: 'Isaiah',
@@ -219,12 +219,12 @@ const commands = [
                         value: 'romans',
                     },
                     {
-                        name: '1 Chorinthians',
-                        value: '1 chorinthians',
+                        name: '1 Corinthians',
+                        value: '1corinthians',
                     },
                     {
-                        name: '2 Chorinthians',
-                        value: '2 chorinthians',
+                        name: '2 Corinthians',
+                        value: '2corinthians',
                     },
                     {
                         name: 'Galatians',
@@ -244,19 +244,19 @@ const commands = [
                     },
                     {
                         name: '1 Thessalonians',
-                        value: '1 thessalonians',
+                        value: '1thessalonians',
                     },
                     {
                         name: '2 Thessalonians',
-                        value: '2 thessalonians',
+                        value: '2thessalonians',
                     },
                     {
                         name: '1 Timothy',
-                        value: '1 Timothy',
+                        value: '1timothy',
                     },
                     {
                         name: '2 Timothy',
-                        value: '2 Timothy',
+                        value: '2timothy',
                     },
                     {
                         name: 'Titus',
@@ -276,23 +276,23 @@ const commands = [
                     },
                     {
                         name: '1 Peter',
-                        value: '1 peter',
+                        value: '1peter',
                     },
                     {
                         name: '2 Peter',
-                        value: '2 peter',
+                        value: '2peter',
                     },
                     {
                         name: '1 John',
-                        value: '1 john',
+                        value: '1john',
                     },
                     {
                         name: '2 John',
-                        value: '2 john',
+                        value: '2john',
                     },
                     {
                         name: '3 John',
-                        value: '3 john',
+                        value: '3john',
                     },
                     {
                         name: 'Jude',
@@ -335,9 +335,8 @@ const rest = new REST({version: '10'}).setToken(process.env.TOKEN);
                 process.env.CLIENT_ID,
                 process.env.GUILD_ID
                 ),
-            { body: commands }    
+            { body: commands }
         )
-
         console.log('Slash commands were registered successfully!');
     }catch (err) {
         console.log(`Error: ${err}`);
