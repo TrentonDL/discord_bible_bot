@@ -44,9 +44,12 @@ client.on('interactionCreate', async (interaction) => {
 
     if (interaction.commandName === 'bible') {
         const book = interaction.options.get('book').value;
+        let lower_book = book.toLowerCase();
+        lower_book = lower_book.replace(/\s+/g, "");
         const chapter = interaction.options.get('chapter').value;
+        console.log(lower_book)
 
-        let verse = '0';
+        let verse = '';
         if (interaction.options.get('verses') !== null) {
             verse = interaction.options.get('verses').value;
         }
@@ -55,15 +58,17 @@ client.on('interactionCreate', async (interaction) => {
         if (interaction.options.get('version') !== null) {
             version = interaction.options.get('version').value;
         }
-
-        let url = `https://cdn.jsdelivr.net/gh/wldeh/bible-api/bibles/${version}/books/${book}/chapters/${chapter}`
+        
+        let url = `https://raw.githubusercontent.com/wldeh/bible-api/refs/heads/main/bibles/${version}/books/${lower_book}/chapters/${chapter}/verses/`
         try {
             let text;
-            if (verse !== '0') {
-                text = await ReadJSON_SingleVerse(url + `verse/${verse}.json`,verse-1);
+            if (verse !== '') {
+                text = await ReadJSON_SingleVerse(url + `${verse}.json`,verse);
+                console.log(url + `${verse}.json`)
                 await interaction.reply(`${book} ${chapter}:${verse} \n ${text}`);
             } else {
                 text = await ReadJSON_Chapter(url);
+                console.log(url)
                 await interaction.reply(`${book} ${chapter} \n ${text}`);
             }
         } catch (error) {
