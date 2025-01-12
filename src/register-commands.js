@@ -33,12 +33,48 @@ const commands = [
         description: 'Fetches bible verses with a given Book, Chapter and Verses',
         options: [
             {
+                name: 'testement',
+                description: 'New or Old Testement',
+                type: ApplicationCommandOptionType.String,
+                required: true,
+                choices: [
+                    {
+                        name: 'New Testement',
+                        value: 'new'
+                    },
+                    {
+                        name: 'Old Testement',
+                        value: 'old'
+                    }
+                ]
+            },
+            {
+                name: 'book_prefix',
+                description: 'Numbered books',
+                type: ApplicationCommandOptionType.Integer,
+                required: false,
+                choices: [
+                    {
+                        name: '1',
+                        value: 1
+                    },
+                    {
+                        name: '2',
+                        value: 2
+                    },
+                    {
+                        name: '3',
+                        value: 3
+                    }
+                ]
+            },
+            {
                 name: 'book',
                 description: 'Book of the bible',
                 type: ApplicationCommandOptionType.String,
                 required: true,
                 choices: [
-                    {
+                    /*{
                         name: 'Genesis',
                         value: 'genesis',
                     },
@@ -71,28 +107,16 @@ const commands = [
                         value: 'ruth',
                     },
                     {
-                        name: '1 Samuel',
-                        value: '1samuel',
+                        name: 'Samuel',
+                        value: 'samuel',
                     },
                     {
-                        name: '2 Samuel',
-                        value: '2samuel',
+                        name: 'Kings',
+                        value: 'kings',
                     },
                     {
-                        name: '1 Kings',
-                        value: '1kings',
-                    },
-                    {
-                        name: '2 Kings',
-                        value: '2kings',
-                    },
-                    {
-                        name: '1 Chronicles',
-                        value: '1chronicles',
-                    },
-                    {
-                        name: '2 Chronicles',
-                        value: '2chronicles',
+                        name: 'Chronicles',
+                        value: 'chronicles',
                     },
                     {
                         name: 'Ezra',
@@ -193,7 +217,7 @@ const commands = [
                     {
                         name: 'Malachi',
                         value: 'malachi',
-                    },
+                    },*/
                     {
                         name: 'Matthew',
                         value: 'matthew',
@@ -219,12 +243,8 @@ const commands = [
                         value: 'romans',
                     },
                     {
-                        name: '1 Corinthians',
-                        value: '1corinthians',
-                    },
-                    {
-                        name: '2 Corinthians',
-                        value: '2corinthians',
+                        name: 'Corinthians',
+                        value: 'corinthians',
                     },
                     {
                         name: 'Galatians',
@@ -243,20 +263,12 @@ const commands = [
                         value: 'colossians',
                     },
                     {
-                        name: '1 Thessalonians',
-                        value: '1thessalonians',
+                        name: 'Thessalonians',
+                        value: 'thessalonians',
                     },
                     {
-                        name: '2 Thessalonians',
-                        value: '2thessalonians',
-                    },
-                    {
-                        name: '1 Timothy',
-                        value: '1timothy',
-                    },
-                    {
-                        name: '2 Timothy',
-                        value: '2timothy',
+                        name: 'Timothy',
+                        value: 'timothy',
                     },
                     {
                         name: 'Titus',
@@ -275,24 +287,12 @@ const commands = [
                         value: 'james',
                     },
                     {
-                        name: '1 Peter',
-                        value: '1peter',
+                        name: 'Peter',
+                        value: 'peter',
                     },
                     {
-                        name: '2 Peter',
-                        value: '2peter',
-                    },
-                    {
-                        name: '1 John',
-                        value: '1john',
-                    },
-                    {
-                        name: '2 John',
-                        value: '2john',
-                    },
-                    {
-                        name: '3 John',
-                        value: '3john',
+                        name: 'John',
+                        value: 'john',
                     },
                     {
                         name: 'Jude',
@@ -306,19 +306,15 @@ const commands = [
             },
             {
                 name: 'chapter',
-                description: 'chapter number in the book',
+                description: 'Chapter # in the book',
                 type: ApplicationCommandOptionType.Number,
                 required: true,
             },
             {
                 name: 'verses',
-                description: 'given a verses, range of verses, or leave blank for full chapter',
+                description: 'Verse # or range of verses',
                 type: ApplicationCommandOptionType.String,
-            },
-            {
-                name: 'version',
-                description: 'bible version, if blank default is ESV',
-                type: ApplicationCommandOptionType.String,
+                required: true,
             },
         ],
     },

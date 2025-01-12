@@ -44,10 +44,8 @@ client.on('interactionCreate', async (interaction) => {
 
     if (interaction.commandName === 'bible') {
         const book = interaction.options.get('book').value;
-        let lower_book = book.toLowerCase();
-        lower_book = lower_book.replace(/\s+/g, "");
+        let DisplayBook = book.charAt(0).toUpperCase() + book.slice(1);
         const chapter = interaction.options.get('chapter').value;
-        console.log(lower_book)
 
         let verse = '';
         if (interaction.options.get('verses') !== null) {
@@ -59,17 +57,17 @@ client.on('interactionCreate', async (interaction) => {
             version = interaction.options.get('version').value;
         }
         
-        let url = `https://raw.githubusercontent.com/wldeh/bible-api/refs/heads/main/bibles/${version}/books/${lower_book}/chapters/${chapter}/verses/`
+        let url = `https://raw.githubusercontent.com/wldeh/bible-api/refs/heads/main/bibles/${version}/books/${book}/chapters/${chapter}/verses/`
         try {
             let text;
             if (verse !== '') {
                 text = await ReadJSON_SingleVerse(url + `${verse}.json`,verse);
                 console.log(url + `${verse}.json`)
-                await interaction.reply(`${book} ${chapter}:${verse} \n ${text}`);
+                await interaction.reply(`${DisplayBook} ${chapter}:${verse} \n ${text}`);
             } else {
                 text = await ReadJSON_Chapter(url);
                 console.log(url)
-                await interaction.reply(`${book} ${chapter} \n ${text}`);
+                await interaction.reply(`${DisplayBook} ${chapter} \n ${text}`);
             }
         } catch (error) {
             console.error("Error fetching Bible text:", error);
@@ -85,7 +83,12 @@ async function ReadJSON_SingleVerse(url, verse) {
             throw new Error("HTTP Error: " + response.status);
         }
         const data = await response.json();
-        return data.data[verse]?.text || "No Text Avaiable";
+
+        // Match the verse field and return the corresponding text
+        if (data.verse === verse) {
+            return data.text;
+        }
+        return "No matching verse found";
     } catch (error) {
         console.error("Error fetching JSON:", error);
         return null; // Indicate failure to fetch or parse JSON
