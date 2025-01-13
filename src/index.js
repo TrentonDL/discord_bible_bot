@@ -26,6 +26,20 @@ client.on('messageCreate', (message) => {
 
 client.on('interactionCreate', async (interaction) => {
     if (!interaction.isChatInputCommand()) return;
+    else if (interaction.isAutocomplete()) {
+        const command = interaction.Client.commands.get(interaction.commandName);
+        
+        if (!command){
+            console.error(`No command matching ${interaction.commandName} was found.`);
+            return;
+        }
+
+        try{
+            await command.autocomplete(interaction)
+        }catch (error){
+            console.error(error)
+        }
+    }
 
     if(interaction.commandName === 'hey'){
         interaction.reply('hey!');
@@ -42,38 +56,38 @@ client.on('interactionCreate', async (interaction) => {
         interaction.reply(`The sum of ${num1} + ${num2} = ${num1+num2}!`);
     }
 
-    if (interaction.commandName === 'bible') {
-        const book = interaction.options.get('book').value;
-        let DisplayBook = book.charAt(0).toUpperCase() + book.slice(1);
-        const chapter = interaction.options.get('chapter').value;
+    // if (interaction.commandName === 'bible') {
+    //     const book = interaction.options.get('book').value;
+    //     let DisplayBook = book.charAt(0).toUpperCase() + book.slice(1);
+    //     const chapter = interaction.options.get('chapter').value;
 
-        let verse = '';
-        if (interaction.options.get('verses') !== null) {
-            verse = interaction.options.get('verses').value;
-        }
+    //     let verse = '';
+    //     if (interaction.options.get('verses') !== null) {
+    //         verse = interaction.options.get('verses').value;
+    //     }
 
-        let version = 'en-webus'; // Default version
-        if (interaction.options.get('version') !== null) {
-            version = interaction.options.get('version').value;
-        }
+    //     let version = 'en-webus'; // Default version
+    //     if (interaction.options.get('version') !== null) {
+    //         version = interaction.options.get('version').value;
+    //     }
         
-        let url = `https://raw.githubusercontent.com/wldeh/bible-api/refs/heads/main/bibles/${version}/books/${book}/chapters/${chapter}/verses/`
-        try {
-            let text;
-            if (verse !== '') {
-                text = await ReadJSON_SingleVerse(url + `${verse}.json`,verse);
-                console.log(url + `${verse}.json`)
-                await interaction.reply(`${DisplayBook} ${chapter}:${verse} \n ${text}`);
-            } else {
-                text = await ReadJSON_Chapter(url);
-                console.log(url)
-                await interaction.reply(`${DisplayBook} ${chapter} \n ${text}`);
-            }
-        } catch (error) {
-            console.error("Error fetching Bible text:", error);
-            await interaction.reply("Sorry, I couldn't retrieve the Bible verse. Please check the inputs and try again.");
-        }
-    }
+    //     let url = `https://raw.githubusercontent.com/wldeh/bible-api/refs/heads/main/bibles/${version}/books/${book}/chapters/${chapter}/verses/`
+    //     try {
+    //         let text;
+    //         if (verse !== '') {
+    //             text = await ReadJSON_SingleVerse(url + `${verse}.json`,verse);
+    //             console.log(url + `${verse}.json`)
+    //             await interaction.reply(`${DisplayBook} ${chapter}:${verse} \n ${text}`);
+    //         } else {
+    //             text = await ReadJSON_Chapter(url);
+    //             console.log(url)
+    //             await interaction.reply(`${DisplayBook} ${chapter} \n ${text}`);
+    //         }
+    //     } catch (error) {
+    //         console.error("Error fetching Bible text:", error);
+    //         await interaction.reply("Sorry, I couldn't retrieve the Bible verse. Please check the inputs and try again.");
+    //     }
+    // }
 });
 
 async function ReadJSON_SingleVerse(url, verse) {
