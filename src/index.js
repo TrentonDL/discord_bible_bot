@@ -1,17 +1,16 @@
-require('dotenv').config();
-const { Client, IntentsBitField } = require('discord.js');
+const { token, clientId, guildId } = require('config.json');
 
-const client = new Client({
-    intents: [
-        IntentsBitField.Flags.Guilds,
-        IntentsBitField.Flags.GuildMembers,
-        IntentsBitField.Flags.GuildMessages,
-        IntentsBitField.Flags.MessageContent,
-    ],
-});
+const fs = require('node:fs');
+const path = require('node:path');
+const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { token } = require('./config.json');
 
-client.on('ready', (c) => {
-    console.log(`${c.user.tag} is online`);
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
+client.commands = new Collection();
+
+client.once(Events.ClientReady, readyClient => {
+    console.log(`${readyClient.user.tag} is online`);
 });
 
 client.on('messageCreate', (message) => {
@@ -131,4 +130,4 @@ async function ReadJSON_Chapter(url) {
 }
 
 
-client.login(process.env.TOKEN);
+client.login(token);

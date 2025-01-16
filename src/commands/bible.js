@@ -1,3 +1,5 @@
+const { SlashCommandBuilder } = require('discord.js')
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('bible')
@@ -28,4 +30,8 @@ module.exports = {
 			filtered.map(choice => ({ name: choice, value: choice })),
         );
     },
+
+    async execute(interaction){
+        
+    }
 };
